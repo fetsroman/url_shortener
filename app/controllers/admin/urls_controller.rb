@@ -1,5 +1,10 @@
 module Admin
   class UrlsController < Admin::ApplicationController
+    def destroy_with_two_months_no_click
+      Url.where("updated_at < ?", (Time.now-2.month)).destroy_all
+      redirect_to admin_root_path, success: 'Urls with 2 months without click was deleted'
+    end
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

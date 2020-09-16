@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     post '/sign_in', to: 'sessions#create'
 
     resources :urls, only: [:index, :show, :destroy]
+    delete '/destroy_no_click', to: "urls#destroy_with_two_months_no_click"
 
     root to: "urls#index"
   end
