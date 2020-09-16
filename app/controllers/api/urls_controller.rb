@@ -1,5 +1,5 @@
 class Api::UrlsController < ApiController
-  before_action :set_user, only: [:show]
+  before_action :set_user, only: [:show, :update, :destroy]
 
   def index
     @urls = Url.all
@@ -35,6 +35,31 @@ class Api::UrlsController < ApiController
       }, status: :created
     else
       render json: @url.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @url.password == params[:password]
+      if @url.update(url_params)
+        render json: {
+            id: @url.id,
+            original_url: @url.original_url,
+            short_url: request.protocol + request.host_with_port + "/" + @url.short_url,
+            password: @url.password
+        }
+      else
+        render json: @url.errors, status: :unprocessable_entity
+      end
+    else
+      render status: :forbidden
+    end
+  end
+
+  def destroy
+    if @url.password == params[:password]
+      @url.destroy
+    else
+      render status: :forbidden
     end
   end
 
