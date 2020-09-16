@@ -1,5 +1,5 @@
 class Api::UrlsController < ApiController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_url, only: [:show, :update, :destroy]
 
   def index
     @urls = Url.all
@@ -65,7 +65,7 @@ class Api::UrlsController < ApiController
 
   private
 
-  def set_user
+  def set_url
     @url = Url.find(params[:id])
   end
 

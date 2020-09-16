@@ -1,7 +1,6 @@
 class Url < ApplicationRecord
   validates_presence_of :original_url
-  before_create :generate_password
-  before_save :generate_short_url
+  before_create :generate_password, :generate_short_url
 
   def generate_password
     self.password = SecureRandom.hex(8)
