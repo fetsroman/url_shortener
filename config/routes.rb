@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
+    get '/sign_in', to: 'sessions#new'
+    post '/sign_in', to: 'sessions#create'
+
     resources :urls, only: [:index, :show, :destroy]
 
     root to: "urls#index"

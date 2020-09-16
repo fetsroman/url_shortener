@@ -9,7 +9,10 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
-      # TODO Add authentication logic here.
+      @user = User.find_by(id: session[:user_id])
+      if !@user
+        redirect_to '/admin/sign_in'
+      end
     end
 
     # Override this value to specify the number of elements to display at a time
